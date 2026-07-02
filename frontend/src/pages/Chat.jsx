@@ -180,7 +180,10 @@ function Chat() {
     <div className="bg2"></div>
     <div className="bg3"></div>
     <div className="sidebar">
-      <h2 className="sidebar-title">Chats</h2>
+    <div className="sidebar-header">
+    <img src="/galax-o.png" alt="Galax¡O" className="sidebar-logo"/>
+    <h2 className="sidebar-title">Galax¡O</h2>
+    </div>
       <div className="user-list">
         { users
           .filter(user => user.userId !== me.userId)

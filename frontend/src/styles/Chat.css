@@ -596,6 +596,32 @@ background:
 
 }
 
+.logo{
+    width:250px;
+    height:auto;
+    object-fit:contain;
+    margin-bottom:15px;
+}
+
+.sidebar-header{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:20px;
+    border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+.sidebar-logo{
+    width:80px;
+    height:80px;
+    object-fit:contain;
+}
+
+.sidebar-header h2{
+    font-size:24px;
+    font-weight:700;
+}
+
 
 @keyframes floatBlob{
 

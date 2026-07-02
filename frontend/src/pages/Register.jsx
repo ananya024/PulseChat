@@ -31,6 +31,7 @@ function Register() {
   return (
     <div className="auth-page">
       <div className="auth-card">
+        <img src="/galax-o-logo.png" alt="Galax¡O" className="logo"/>
         <form className="auth-form" onSubmit={handleSubmit}>
           <h1 className="auth-title">Galax¡O</h1>
           <p className="auth-subtitle">Create your account</p>

@@ -204,6 +204,13 @@ body{
 
 }
 
+.logo{
+    width:250px;
+    height:auto;
+    object-fit:contain;
+    margin-bottom:15px;
+}
+
 @keyframes bgMove{
 
     0%{

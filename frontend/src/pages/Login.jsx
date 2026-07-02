@@ -32,9 +32,10 @@ function Login() {
   return (
     <div className="auth-page">
         <div className="auth-card">
+            <img src="/galax-o-logo.png" alt="Galax¡O" className="logo"/>
             <form className="auth-form" onSubmit={handleSubmit}>
                 <h1 className="auth-title">Galax¡O</h1>
-                <p className="auth-subtitle">Welcome back</p>
+                <p className="auth-subtitle">Connect instantly</p>
                 <input
                     className="auth-input"
                     type="text"
