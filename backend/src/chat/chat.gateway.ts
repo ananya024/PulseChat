@@ -81,6 +81,11 @@ export class ChatGateway {
     const ruser= await this.usersService.findOneByUname(payload.receivername);
     // if(!user)
     //   return;
+    console.log("ONLINE USERS MAP");
+    console.log(this.onlineUsers);
+
+    console.log("Receiver:", ruser!.userId);
+    console.log("Receiver socket:", this.onlineUsers.get(ruser!.userId));
     const receiverSocketId = this.onlineUsers.get(ruser!.userId);
     console.log("receiver socket id =", receiverSocketId);
     console.log("sender socket id   =", client.id);

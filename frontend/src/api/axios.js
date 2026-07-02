@@ -9,7 +9,7 @@ const api = axios.create({
 
 api.interceptors.request.use((config) => { //its like teh auth guard in nest
     // wil be used for all gets and posts after login
-  const token = localStorage.getItem("token");
+  const token = sessionStorage.getItem("token");
 
   // console.log("token:::: ",token);
 

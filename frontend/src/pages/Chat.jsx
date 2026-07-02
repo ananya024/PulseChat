@@ -20,7 +20,7 @@ function Chat() {
   const selectedUserRef = useRef(selectedUser);
   const meRef = useRef(me);
   const messagesEndRef = useRef(null);
-  const token= localStorage.getItem("token");
+  const token= sessionStorage.getItem("token");
   
   const handlePrivateMessage = (msg) => {
 
@@ -65,7 +65,7 @@ function Chat() {
   }
 
   const handleLogout =() =>{
-    localStorage.removeItem("token");
+    sessionStorage.removeItem("token");
     socketRef.current?.disconnect();
     navigate("/login");
   }

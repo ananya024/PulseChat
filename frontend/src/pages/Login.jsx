@@ -20,7 +20,7 @@ function Login() {
         e.preventDefault();
         try {
             const response = await loginUser(formData);
-            localStorage.setItem("token", response.data.access_token);
+            sessionStorage.setItem("token", response.data.access_token);
             navigate("/chat");
             console.log("Logged in user:",response);
         } 
