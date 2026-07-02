@@ -1,5 +1,5 @@
 /* Chat.css */
-
+/* 
 .bg1,
 .bg2,
 .bg3{
@@ -46,7 +46,7 @@
     transform:translateX(-50%);
 
     animation-delay:10s;
-}
+} */
 
 *{
     margin:0;
@@ -84,7 +84,7 @@ body{
             SIDEBAR
 =========================== */
 
-.sidebar{
+/* .sidebar{
     position:relative;
     z-index:2;
     width:320px;
@@ -97,6 +97,13 @@ body{
     flex-direction:column;
     box-shadow:
     0 0 20px rgba(0,150,255,.08);
+} */
+.sidebar{
+    width:300px;
+    background:#111827;
+    border-right:1px solid #1f2937;
+    display:flex;
+    flex-direction:column;
 }
 
 .sidebar-title{
@@ -246,7 +253,7 @@ body{
 
 }
 
-.chat-header{
+/* .chat-header{
 
     background:rgba(255,255,255,.04);
 
@@ -259,6 +266,18 @@ body{
     box-shadow:
     0 2px 18px rgba(0,0,0,.3);
 
+} */
+
+.chat-header{
+    height:72px;
+    padding:0 24px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+
+    background:#0f172a;
+
+    border-bottom:1px solid #1f2937;
 }
 
 .chat-header h2{
@@ -293,7 +312,7 @@ body{
 
     gap:12px;
 
-background:
+/* background:
 
     radial-gradient(
         circle at top right,
@@ -330,7 +349,7 @@ background:
         #211840,
         #131436,
         #0d1e29
-    );
+    ); */
     
     background-attachment: fixed;
 
@@ -400,7 +419,11 @@ background:
 
     align-self:flex-start;
 
-    background:#20304d;
+    background:rgba(124,58,237,.25);
+    
+    box-shadow:
+        /* inset 4px 0 #8b5cf6, */
+        0 0 8px rgba(124,58,237,.45);
 
     color:white;
 
@@ -495,13 +518,7 @@ background:
 
     border-radius:16px;
 
-    background:
-        linear-gradient(
-            135deg,
-            #6d28d9,
-            #4f46e5,
-            #2563eb
-        );
+    background:#032e8a;
 
     color:white;
 
@@ -564,13 +581,9 @@ background:
 
     border-radius:16px;
 
-    background:
-        linear-gradient(
-            135deg,
-            #6d28d9,
-            #4f46e5,
-            #2563eb
-        );
+    background:#032e8a;
+    /* background:rgba(124,58,237,.25); */
+
 
     color:white;
 
@@ -622,7 +635,7 @@ background:
     font-weight:700;
 }
 
-
+/* 
 @keyframes floatBlob{
 
     0%{
@@ -687,4 +700,4 @@ background:
 
     }
 
-}
+} */
