@@ -12,10 +12,14 @@ async function bootstrap() {
     origin: [
       "http://localhost:5173",
       "https://pulse-chat-amber.vercel.app",
-      "https://pulse-chat-b5s7iwldw-ananya024s-projects.vercel.app",
+      // "https://pulse-chat-b5s7iwldw-ananya024s-projects.vercel.app",
     ],
     credentials: true,
   });
+  // app.enableCors({
+  //   origin: process.env.CORS_ORIGINS?.split(","),
+  //   credentials: true,
+  // });
   // app.enableCors({ origin: "http://localhost:5173", credentials: true });
   // ................
   
