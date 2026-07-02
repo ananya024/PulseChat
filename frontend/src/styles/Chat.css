@@ -597,10 +597,10 @@ background:
 }
 
 .logo{
-    width:250px;
-    height:auto;
-    object-fit:contain;
-    margin-bottom:15px;
+    width:95px;
+    filter:
+        drop-shadow(0 0 10px rgba(0,180,255,.35))
+        drop-shadow(0 0 24px rgba(128,90,255,.25));
 }
 
 .sidebar-header{
