@@ -1,6 +1,6 @@
 // users.service.ts
 
-import { ConflictException, Injectable } from '@nestjs/common';
+import { ConflictException, Injectable, Logger } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -10,6 +10,7 @@ import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UsersService {
+  private readonly logger = new Logger(UsersService.name);
   constructor(
     @InjectRepository(User)
     private userRepository: Repository<User>,
@@ -20,6 +21,7 @@ export class UsersService {
       const hashedPassword= await bcrypt.hash(createUserDto.password,10,);
       createUserDto.password=hashedPassword;
       const newUser= this.userRepository.create(createUserDto);
+      this.logger.log(`User registered | username=${newUser.username}`);
       return await this.userRepository.save(newUser);
     }
     catch(e){
@@ -49,17 +51,21 @@ export class UsersService {
   }
 
   async authUser(username: string, password:string){
-    // const user= await this.userRepository.findOneBy({username:username})
     const user = await this.userRepository.findOne({
                                                       where: { username },
                                                       select: { userId: true, username: true, password: true, }
                                                     });
-    if(!user)
+    if(!user){
+      this.logger.warn(`Login failed | username=${username}`);
       return null;
+    }
     const valid = await bcrypt.compare(password, user.password);
-    if(valid)
+    if(valid){
       return user;
-    else
+    }
+    else{
+      this.logger.warn(`Invalid password | username=${username}`);
       return null;
+    }
   }
 }

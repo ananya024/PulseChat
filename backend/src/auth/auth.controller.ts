@@ -1,3 +1,5 @@
+// auth.controller.ts
+
 import { Body, Controller, Get, HttpCode, HttpStatus, Post, Request, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { CreateUserDto } from 'src/users/dto/create-user.dto';
@@ -23,7 +25,7 @@ export class AuthController {
     @UseGuards(AuthGuard)
     @Get('profile')
     getProfile(@Request() req){
-        console.log("profile req.user =", req.user);
+        // console.log("profile req.user =", req.user);
         return req.user;
     }
 

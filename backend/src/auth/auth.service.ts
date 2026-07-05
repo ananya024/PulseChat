@@ -1,11 +1,12 @@
 // auth.service.ts
 
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { Injectable, Logger, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { UsersService } from 'src/users/users.service';
 
 @Injectable()
 export class AuthService {
+    private readonly logger = new Logger(AuthService.name);
     constructor(
         private usersService: UsersService,
         private jwtService: JwtService
@@ -15,10 +16,12 @@ export class AuthService {
         const user= await this.usersService.authUser(userName, pass);
         if(user===null)
         {
+            this.logger.log(`User doesn't exist`);
             throw new UnauthorizedException();
         }
         const payload = { sub: user.userId, username: user.username};
         try{
+            this.logger.log(`User logged in | username=${user.username}`);
             return {
                 statusCode:201,
                 message: "User authentication succesful",
@@ -28,6 +31,7 @@ export class AuthService {
             }
         }
         catch(e){
+            this.logger.warn(`Login failed | username=${user.username}`);
             throw new UnauthorizedException();
         }
     }

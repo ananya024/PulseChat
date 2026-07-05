@@ -1,6 +1,6 @@
 // app.module.ts
 
-import { Module } from '@nestjs/common';
+// import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
@@ -10,8 +10,13 @@ import { AuthModule } from './auth/auth.module';
 import { MessagesModule } from './messages/messages.module';
 import { User } from './users/entities/user.entity';
 import { Message } from './messages/entities/message.entity';
-import { ChatGateway } from './chat/chat.gateway';
 import { ChatModule } from './chat/chat.module';
+import {
+  MiddlewareConsumer,
+  Module,
+  NestModule,
+} from '@nestjs/common';
+import { LoggerMiddleware } from './common/middleware/logger.middleware';
 
 @Module({
   imports: [
@@ -36,4 +41,8 @@ import { ChatModule } from './chat/chat.module';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule implements NestModule{
+  configure(consumer: MiddlewareConsumer) {
+      consumer.apply(LoggerMiddleware).forRoutes('*');
+  }
+}

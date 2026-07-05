@@ -26,8 +26,6 @@ function Chat() {
 
     const selected = selectedUserRef.current;
     const meUser = meRef.current;
-    console.log("MSG:", msg);
-    console.log("ME:", meRef.current);
     console.log("SELECTED:", selectedUserRef.current);
     if((msg.sender===meUser?.username && msg.receiver===selected?.username) || (msg.sender===selected?.username && msg.receiver===meUser?.username))
       setMessages(prev => [...prev, msg]);

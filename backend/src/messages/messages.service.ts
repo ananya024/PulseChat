@@ -1,6 +1,6 @@
 // messages.service.ts
 
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { CreateMessageDto } from './dto/create-message.dto';
 import { UpdateMessageDto } from './dto/update-message.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -10,6 +10,7 @@ import { Message } from './entities/message.entity';
 
 @Injectable()
 export class MessagesService {
+  private readonly logger = new Logger(MessagesService.name);
   constructor(
         @InjectRepository(User)
         private userRepository: Repository<User>,
@@ -17,27 +18,19 @@ export class MessagesService {
         private messageRepository: Repository<Message>
   ){}
 
-// @Post('send')
-// @UseGuards(AuthGuard)
-// create(
-//     @Request() req,
-//     @Body() dto: CreateMessageDto
-// ){
-//     return this.messagesService.create(
-//         req.user.sub,
-//         dto
-//     );
-// }
-
   async create(senderId:string, createMessageDto: CreateMessageDto) { 
     const sender=await this.userRepository.findOneBy({userId: senderId});
     const receiver=await this.userRepository.findOneBy({username: createMessageDto.receivername});
     if(!sender || !receiver)
-      throw new Error("users not found");
-    // const newMsg = { sender, receiver, content: createMessageDto.content}
+      throw new NotFoundException({
+          code: "USER_NOT_FOUND",
+          message: "User not found",
+      });
     const newMsg = this.messageRepository.create({ sender, receiver, content: createMessageDto.content});
     const saved = await this.messageRepository.save(newMsg);
-
+    this.logger.log(
+      `Message stored | ${sender.username} -> ${receiver.username}`
+    );
     return {
         messageId: saved.messageId,
         sender: saved.sender.username,
@@ -51,13 +44,10 @@ export class MessagesService {
 
   async allhistory(senderId:string) {
     const user = await this.userRepository.findOne({where:{userId:senderId}})
-    // if(!user)
-    //   return;
     const msgs= await this.messageRepository.find({where: [{ sender: { userId: senderId } },
                                                            { receiver: { userId: senderId } }],
                                                    relations: {sender: true, receiver: true},
                                                    order:{createdAt:'ASC'}})
-    // return msgs;
     return msgs.map(msg => ({sender: msg.sender.username, receiver: msg.receiver.username, content: msg.content}));
   }
 
@@ -66,7 +56,6 @@ export class MessagesService {
                                                     relations: {sender: true, receiver: true},
                                                     order:{createdAt:'ASC'}})
     
-    // const count={};
     const count: Record<string, number> = {};
     for(let msg of msgs)
     {
@@ -88,6 +77,9 @@ export class MessagesService {
       msg.isDelivered=true;
     }
     await this.messageRepository.save(msgs); 
+    this.logger.log(
+      `${msgs.length} messages marked delivered`
+    );
     return msgs;
   }  
 
@@ -111,6 +103,9 @@ export class MessagesService {
       //senderId is of the logged in user, so HIS RECEIVED msgs, and HIS isread shd be true as he opened msgs
     }
     await this.messageRepository.save(msgs);
+        this.logger.log(
+      `${msgs.length} messages marked read`
+    );
     // save is used, but TypeORM sees that these entities already exist in the database
     // so performs UPDATE instead of INSERT.
     return msgs.map(msg => ({messageId:msg.messageId, sender: msg.sender.username, receiver: msg.receiver.username, content: msg.content, createdAt:msg.createdAt, isRead:msg.isRead, isDelivered:msg.isDelivered}));
