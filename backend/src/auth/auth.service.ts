@@ -1,6 +1,6 @@
 // auth.service.ts
 
-import { Injectable, Logger, UnauthorizedException } from '@nestjs/common';
+import { Injectable, Logger, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { UsersService } from 'src/users/users.service';
 
@@ -17,7 +17,10 @@ export class AuthService {
         if(user===null)
         {
             this.logger.log(`User doesn't exist`);
-            throw new UnauthorizedException();
+            throw new NotFoundException({
+                code: "USER_NOT_FOUND",
+                message: "User not found",
+            });
         }
         const payload = { sub: user.userId, username: user.username};
         try{
@@ -32,7 +35,10 @@ export class AuthService {
         }
         catch(e){
             this.logger.warn(`Login failed | username=${user.username}`);
-            throw new UnauthorizedException();
+            throw new NotFoundException({
+                code: "USER_NOT_FOUND",
+                message: "User not found",
+            });
         }
     }
 }

@@ -25,7 +25,10 @@ export class UsersService {
       return await this.userRepository.save(newUser);
     }
     catch(e){
-      throw new ConflictException("User exists");
+      throw new ConflictException({
+          "code": "USER_ALREADY_EXISTS",
+          "message": "User already exists"
+      });
     }
   }
 

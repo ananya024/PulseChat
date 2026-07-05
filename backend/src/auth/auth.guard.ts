@@ -19,7 +19,10 @@ export class AuthGuard implements CanActivate {
     const request = context.switchToHttp().getRequest();
     const token = this.extractTokenFromHeader(request);  
     if (!token) {
-      throw new UnauthorizedException();
+      throw new UnauthorizedException({
+          code: "INVALID_TOKEN",
+          message: "JWT verification failed",
+      });
     }
     try {
       const payload = await this.jwtService.verifyAsync(token);
@@ -27,7 +30,10 @@ export class AuthGuard implements CanActivate {
       request['user'] = payload;
     } catch (err){
       this.logger.warn("JWT verification failed");
-      throw new UnauthorizedException();
+      throw new UnauthorizedException({
+          code: "INVALID_CREDENTIALS",
+          message: "Invalid username or password",
+      });
     }
     return true;
   }

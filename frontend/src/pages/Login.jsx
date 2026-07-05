@@ -22,10 +22,10 @@ function Login() {
             const response = await loginUser(formData);
             sessionStorage.setItem("token", response.data.access_token);
             navigate("/chat");
-            console.log("Logged in user:",response);
+            prompt("Logged in user:",response);
         } 
         catch (error) {
-            console.error(error);
+            alert(error);
         }
     }
     

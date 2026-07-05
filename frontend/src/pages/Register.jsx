@@ -21,10 +21,11 @@ function Register() {
         try {
             const response = await registerUser(formData);
             navigate("/login");
-            console.log("User registered:",response);
+            // console.log("User registered:",response);
+            prompt("Registration successful");
         } 
         catch (error) {
-            console.error("Username exists, login if already a user, or choose a different username");
+            alert("Registration failed");
         }
     }
     

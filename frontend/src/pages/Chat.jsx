@@ -26,7 +26,7 @@ function Chat() {
 
     const selected = selectedUserRef.current;
     const meUser = meRef.current;
-    console.log("SELECTED:", selectedUserRef.current);
+    // console.log("SELECTED:", selectedUserRef.current);
     if((msg.sender===meUser?.username && msg.receiver===selected?.username) || (msg.sender===selected?.username && msg.receiver===meUser?.username))
       setMessages(prev => [...prev, msg]);
     else
@@ -80,7 +80,7 @@ function Chat() {
         setUsers(updatedUsers);
         setError(null);
       } catch (err) {
-          console.error(err);
+          // console.error(err);
           setError("Failed to initialize chat.");
         }
       }
@@ -93,7 +93,7 @@ function Chat() {
       const socket = connectSocket(token);
       socketRef.current = socket;
       socket.on("connect", () => {
-          console.log("Connected", socket.id);
+          // console.log("Connected", socket.id);
       });
       
       socket.on("private-message", handlePrivateMessage);
@@ -135,7 +135,7 @@ function Chat() {
     async function loadConvo(){
       try{
         const convo = await getConversation(selectedUser.username);
-        console.log(convo.data);
+        // console.log(convo.data);
         setMessages(convo.data);
         setError(null);
       }

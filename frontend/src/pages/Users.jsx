@@ -12,11 +12,11 @@ function Users() {
   useEffect(() => {
     async function fetchUsers() {
         try {
-            console.log("Before API call");
+            // console.log("Before API call");
             const resp = await getAllUsers();
-            console.log("Response:", resp);
+            // console.log("Response:", resp);
             setUsers(resp.data);
-            console.log("All users:", resp.data);
+            // console.log("All users:", resp.data);
         } catch (err) {
             setError("Failed to fetch users");
         } finally {
