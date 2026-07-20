@@ -34,8 +34,18 @@
 }
 
 .loader-card .logo{
+    display:block;
+    width:100%;
+
+    margin:0;
+
+    text-align:center;
+
     font-size:3rem;
+    line-height:1;
+
     color:#7c3aed;
+
     margin-bottom:25px;
 }
 
