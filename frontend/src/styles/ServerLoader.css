@@ -16,7 +16,6 @@
 
     z-index: 9999;
 
-    position:relative;
     color:white;
     font-family:sans-serif;
 }
@@ -34,7 +33,7 @@
     border-radius:22px;
 }
 
-.logo{
+.loader-card .logo{
     font-size:3rem;
     color:#7c3aed;
     margin-bottom:25px;
